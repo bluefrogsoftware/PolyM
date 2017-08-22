@@ -7,7 +7,7 @@
 namespace PolyM {
 
 /** Msg ID for timeout message */
-const int MSG_TIMEOUT = -1;
+const unsigned long long MSG_TIMEOUT = 1000;
 
 /**
  * Queue is a thread-safe message queue.

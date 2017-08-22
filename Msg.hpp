@@ -21,7 +21,7 @@ public:
      *
      * @param msgId Msg ID of this Msg.
      */
-    Msg(int msgId);
+    Msg(unsigned long long msgId);
 
     virtual ~Msg() = default;
     Msg(const Msg&) = delete;
@@ -35,7 +35,7 @@ public:
      * Msg ID identifies message type.
      * Multiple Msg instances can have the same Msg ID.
      */
-    int getMsgId() const;
+    unsigned long long getMsgId() const;
 
     /**
      * Get Msg UID.
@@ -49,7 +49,7 @@ protected:
     Msg& operator=(Msg&&) = default;
 
 private:
-    int msgId_;
+    unsigned long long msgId_;
     MsgUID uniqueId_;
 };
 
@@ -67,7 +67,7 @@ public:
      * @param args Arguments for PayloadType ctor
      */
     template <typename ... Args>
-    DataMsg(int msgId, Args&& ... args)
+    DataMsg(unsigned long long msgId, Args&& ... args)
       : Msg(msgId),
         pl_(new PayloadType(std::forward<Args>(args) ...))
     {

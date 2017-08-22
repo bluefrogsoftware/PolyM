@@ -49,7 +49,7 @@ void testMsgOrder()
         for (int i = 0; i < count; ++i)
         {
             auto m = q.get();
-            TEST_EQUALS(m->getMsgId(), i);
+            TEST_EQUALS(m->getMsgId(), (unsigned long long)i);
         }
     };
 
@@ -113,7 +113,7 @@ void testDataMsg()
     q.put(PolyM::DataMsg<std::string>(42, "foo"));
     auto m = q.get();
     auto& dm = dynamic_cast<PolyM::DataMsg<std::string>&>(*m);
-    TEST_EQUALS(dm.getMsgId(), 42);
+    TEST_EQUALS(dm.getMsgId(), (unsigned long long)42);
     TEST_EQUALS(dm.getPayload(), std::string("foo"));
     // Test modifying the payload data
     dm.getPayload() += "bar";
@@ -133,7 +133,7 @@ void testReceiveTimeout()
     auto end = std::chrono::steady_clock::now();
     auto dur = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 
-    TEST_EQUALS(m->getMsgId(), 1);
+    TEST_EQUALS(m->getMsgId(), (unsigned long long)1);
     //TEST_LESS_THAN(dur, 5LL);
 
     // Then test with empty queue
@@ -158,7 +158,7 @@ void testRequestResponse()
     {
         for (int i = 0; i < count; ++i)
         {
-            TEST_EQUALS(q.request(PolyM::Msg(i))->getMsgId(), i + count);
+            TEST_EQUALS(q.request(PolyM::Msg(i))->getMsgId(), (unsigned long long)(i + count));
         }
     };
 
@@ -166,7 +166,7 @@ void testRequestResponse()
     {
         for (int i = 0; i < count; ++i)
         {
-            TEST_EQUALS(q.request(PolyM::Msg(i + 2 * count))->getMsgId(), i + 3 * count);
+            TEST_EQUALS(q.request(PolyM::Msg(i + 2 * count))->getMsgId(), (unsigned long long)(i + 3 * count));
         }
     };
 

@@ -14,7 +14,7 @@ MsgUID generateUniqueId()
 
 }
 
-Msg::Msg(int msgId)
+Msg::Msg(unsigned long long msgId)
   : msgId_(msgId), uniqueId_(generateUniqueId())
 {
 }
@@ -24,7 +24,7 @@ std::unique_ptr<Msg> Msg::move()
     return std::unique_ptr<Msg>(new Msg(std::move(*this)));
 }
 
-int Msg::getMsgId() const
+unsigned long long Msg::getMsgId() const
 {
     return msgId_;
 }
