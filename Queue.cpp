@@ -75,6 +75,11 @@ public:
             responseMap_[reqUid]->put(std::move(responseMsg));
     }
 
+    int size()
+    {
+      std::lock_guard<std::mutex> lock(queueMutex_);
+      return queue_.size();
+    }
 private:
     // Queue for the Msgs
     std::queue<std::unique_ptr<Msg>> queue_;
@@ -119,6 +124,11 @@ std::unique_ptr<Msg> Queue::request(Msg&& msg)
 void Queue::respondTo(MsgUID reqUid, Msg&& responseMsg)
 {
     impl_->respondTo(reqUid, std::move(responseMsg));
+}
+
+int Queue::size()
+{
+    return impl_->size();
 }
 
 }

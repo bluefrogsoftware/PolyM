@@ -54,6 +54,8 @@ public:
      */
     void respondTo(MsgUID reqUid, Msg&& responseMsg);
 
+    int size();
+
 private:
     class Impl;
     std::unique_ptr<Impl> impl_;
